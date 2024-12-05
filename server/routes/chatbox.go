@@ -2,7 +2,6 @@ package routes
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"healthcare-chatbot/models"
@@ -22,7 +21,6 @@ func ChatHandler(w http.ResponseWriter, r *http.Request) {
 		// If no FAQ matches, use Hugging Face NLP
 		response = utils.AnalyzeMessage(userMessage.Message)
 	}
-	fmt.Sprintf("Message: %s - Response: %s", userMessage.Message, response)
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(models.ChatResponse{Message: response})
