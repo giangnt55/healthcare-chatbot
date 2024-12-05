@@ -18,8 +18,13 @@ func ChatHandler(w http.ResponseWriter, r *http.Request) {
 	// First, try to match an FAQ response
 	response := utils.FindFAQ(userMessage.Message)
 	if response == "" {
-		// If no FAQ matches, use Hugging Face NLP
-		response = utils.AnalyzeMessage(userMessage.Message)
+		// If no FAQ matches, try Hugging Face NLP
+		// response = utils.AnalyzeMessage(userMessage.Message, "Pneumonia symptoms include cough, fever, chills, and difficulty breathing.")
+
+		// If Hugging Face also fails, fallback to ChatGPT
+		if response == "" || response == "Error connecting to the API." {
+			response = utils.AnalyzeWithChatGPT(userMessage.Message)
+		}
 	}
 
 	w.Header().Set("Content-Type", "application/json")

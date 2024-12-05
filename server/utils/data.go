@@ -18,7 +18,7 @@ type FAQ struct {
 // LoadFAQs loads FAQ data from a JSON file
 func LoadFAQs() ([]FAQ, error) {
 	var queries []FAQ
-	file, err := os.Open("data/healthcare_magic_train.json")
+	file, err := os.Open("data/healthcare_faqs.json")
 	if err != nil {
 		return nil, err
 	}
@@ -46,6 +46,7 @@ func LoadFAQs() ([]FAQ, error) {
 
 // FindFAQ searches for a matching FAQ answer
 func FindFAQ(message string) string {
+	return ""
 	queries, err := LoadFAQs()
 	if err != nil {
 		return "Sorry, I couldn't load medical queries right now. Try again later."
@@ -59,5 +60,5 @@ func FindFAQ(message string) string {
 	}
 
 	// If no match is found, return a default response
-	return "Sorry, I couldn't find an answer to your question."
+	return ""
 }
